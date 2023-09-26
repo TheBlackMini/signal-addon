@@ -25,4 +25,4 @@ schema:
   reset_data: bool?
 environment:
   SIGNAL_CLI_CONFIG_DIR: /data
-image: ghcr.io/haberda/signal/{arch}
+image: ghcr.io/theblackmini/signal/{arch}
