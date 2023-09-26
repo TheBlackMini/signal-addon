@@ -157,20 +157,20 @@ jobs:
             BUILD_REF=${{ github.sha }}
             BUILD_REPOSITORY=${{ github.repository }}
             BUILD_VERSION=${{ needs.information.outputs.version }}
-      - name: 🔏 Notarize
-        if: needs.information.outputs.signer != 'null'
-        # yamllint disable rule:line-length
-        run: |
-          if ! cas authenticate \
-            --signerID "${{ needs.information.outputs.signer }}" \
-            --silent \
-            "docker://ghcr.io/${{ steps.string_repo_owner.outputs.lowercase }}/${{ needs.information.outputs.slug }}/${{ matrix.architecture }}:${{ needs.information.outputs.version }}";
-          then
-            cas notarize \
-              --api-key="${{ secrets.CAS_API_KEY }}" \
-              --name "${{ needs.information.outputs.slug }}/${{ matrix.architecture }}:${{ needs.information.outputs.version }}" \
-              "docker://ghcr.io/${{ steps.string_repo_owner.outputs.lowercase }}/${{ needs.information.outputs.slug }}/${{ matrix.architecture }}:${{ needs.information.outputs.version }}"
-          fi
+      # - name: 🔏 Notarize
+      #   if: needs.information.outputs.signer != 'null'
+      #   # yamllint disable rule:line-length
+      #   run: |
+      #     if ! cas authenticate \
+      #       --signerID "${{ needs.information.outputs.signer }}" \
+      #       --silent \
+      #       "docker://ghcr.io/${{ steps.string_repo_owner.outputs.lowercase }}/${{ needs.information.outputs.slug }}/${{ matrix.architecture }}:${{ needs.information.outputs.version }}";
+      #     then
+      #       cas notarize \
+      #         --api-key="${{ secrets.CAS_API_KEY }}" \
+      #         --name "${{ needs.information.outputs.slug }}/${{ matrix.architecture }}:${{ needs.information.outputs.version }}" \
+      #         "docker://ghcr.io/${{ steps.string_repo_owner.outputs.lowercase }}/${{ needs.information.outputs.slug }}/${{ matrix.architecture }}:${{ needs.information.outputs.version }}"
+      #     fi
       # This ugly bit is necessary, or our cache will grow forever...
       # Well until we hit GitHub's limit of 5GB :)
       # https://github.com/docker/build-push-action/issues/252
