@@ -128,8 +128,9 @@ jobs:
           cas authenticate \
             --signerID "${{ needs.information.outputs.base_image_signer }}" \
             "docker://${{ steps.flags.outputs.from }}"
-      - id: string_repo_owner
-        uses: Entepotenz/change-string-case-action@v1
+      - name: Change String Case minimal dependencies
+        uses: Entepotenz/change-string-case-action-min-dependencies@v1
+        id: string_repo_owner
         with:
           string: ${{ github.repository_owner }}
       - name: 🚀 Build
